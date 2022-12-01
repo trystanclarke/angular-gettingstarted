@@ -11,7 +11,7 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <h4>Filtered by: {{listFilter}}</h4>
+        <h4>Filtered by: {{ listFilter }}</h4>
       </div>
     </div>
     <div class="table-responsive">
@@ -19,8 +19,9 @@
         <thead>
           <tr>
             <th>
-              <button (click)="toggleImage($event)"
-              class="btn btn-primary">{{imageToggleText}}</button>
+              <button (click)="toggleImage($event)" class="btn btn-primary">
+                {{ imageToggleText }}
+              </button>
             </th>
             <th>Product</th>
             <th>Code</th>
@@ -31,39 +32,28 @@
         </thead>
         <tbody>
           <tr *ngFor="let product of filteredProducts">
-            <td><img *ngIf="showImage"
-                  [src]="product.imageUrl"
-                  [title]="product.productName | uppercase"
-                    [style.width.px]="imageWidth"
-                    [style.margin.px]="imageMargin"></td>
+            <td>
+              <img
+                *ngIf="showImage"
+                [src]="product.imageUrl"
+                [title]="product.productName | uppercase"
+                [style.width.px]="imageWidth"
+                [style.margin.px]="imageMargin"
+              />
+            </td>
             <td>{{ product.productName }}</td>
-            <td>{{ product.productCode | lowercase | convertToSpaces:"-" }}</td>
+            <td>
+              {{ product.productCode | lowercase | convertToSpaces : "-" }}
+            </td>
             <td>{{ product.releaseDate }}</td>
-            <td>{{ product.price | currency:"GBP":"symbol":"1.2-2" }}</td>
-            <td>{{ product.starRating }}</td>
+            <td>{{ product.price | currency : "GBP" : "symbol" : "1.2-2" }}</td>
+            <td>
+              <pm-star
+                [rating]="product.starRating"
+                (ratingClicked)="onRatingClicked($event)"
+              ></pm-star>
+            </td>
           </tr>
-          <!-- <tr *ngFor='let product of filteredProducts'>
-              <td>
-                <img *ngIf='showImage'
-                     [src]='product.imageUrl'
-                     [title]='product.productName'
-                     [style.width.px]='imageWidth'
-                     [style.margin.px]='imageMargin'>
-              </td>
-              <td>
-                <a [routerLink]="['/products', product.productId]">
-                  {{ product.productName }}
-                </a>
-              </td>
-              <td>{{ product.productCode | lowercase | convertToSpaces:'-' }}</td>
-              <td>{{ product.releaseDate }}</td>
-              <td>{{ product.price | currency:'USD':'symbol':'1.2-2' }}</td>
-              <td>
-                <pm-star [rating]='product.starRating'
-                         (ratingClicked)='onRatingClicked($event)'>
-                </pm-star>
-              </td>
-            </tr> -->
         </tbody>
       </table>
     </div>
